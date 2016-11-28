@@ -1,5 +1,8 @@
 require 'sinatra/base'
 require 'json'
+require_relative 'models/pair.rb'
+
+configure
 
 class DbApp < Sinatra::Base
   enable :sessions
@@ -10,14 +13,13 @@ class DbApp < Sinatra::Base
   end
 
   get '/set' do
-    params.each {|key, value| session[:"#{key}"] = value}
-    erb :set
+    params.each {|key, value| Pair.create(keyInput: key, valueInput: value)}
   end
 
   get '/get' do
     content_type :json
     @key = params[:key]
-    @value = session[:"#{@key}"]
+    @value = Pair.first(keyInput: "#{@key}").valueInput
     {"#{@key}": @value}.to_json
   end
 
