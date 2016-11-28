@@ -1,12 +1,21 @@
 require 'sinatra/base'
 
 class DbApp < Sinatra::Base
+  enable :sessions
+
   get '/' do
-    'Hello DbApp!'
+    redirect
   end
 
   get '/set' do
-    "Enter key/value pair"
+    params.each {|key, value| session[:"#{key}"] = value}
+    erb :set
+  end
+
+  get '/get' do
+    @key = params[:key]
+    @value = session[:"#{@key}"]
+    erb :get
   end
 
   # start the server if ruby file executed directly
