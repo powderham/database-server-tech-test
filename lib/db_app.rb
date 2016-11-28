@@ -3,6 +3,7 @@ require 'json'
 
 class DbApp < Sinatra::Base
   enable :sessions
+  set :port, 4000
 
   get '/' do
     redirect
