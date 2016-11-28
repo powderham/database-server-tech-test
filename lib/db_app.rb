@@ -1,8 +1,12 @@
 require 'sinatra/base'
 
-class dbApp < Sinatra::Base
+class DbApp < Sinatra::Base
   get '/' do
-    'Hello dbApp!'
+    'Hello DbApp!'
+  end
+
+  get '/set' do
+    "Enter key/value pair"
   end
 
   # start the server if ruby file executed directly
