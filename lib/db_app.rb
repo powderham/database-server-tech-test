@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'json'
 
 class DbApp < Sinatra::Base
   enable :sessions
@@ -13,9 +14,10 @@ class DbApp < Sinatra::Base
   end
 
   get '/get' do
+    content_type :json
     @key = params[:key]
     @value = session[:"#{@key}"]
-    erb :get
+    {"#{@key}": @value}.to_json
   end
 
   # start the server if ruby file executed directly
